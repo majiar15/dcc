@@ -16,10 +16,10 @@ class Authenticate extends Middleware
     {
         
         if (! $request->expectsJson()) {
-            if(auth()->user()->role == 'volunter'){
-                return route('welcome');
+            if(auth()->user()->role == 'admin'){
+                return route('login');    
             }else{
-            return route('login');
+                return route('welcome');
             }
         }
     }
