@@ -92,42 +92,43 @@ elseif(empty($userHoras)){
         $id=1;
         $hTotal=0;
         $horas_volunter;
+        
         foreach($userHoras as $u){
             
             if($u->id == $id){
-                $interval = getDiff($u->hora_final , $u->hora_inicio);
-                $hTotal +=$interval;
+                $hTotal += getDiff($u->hora_final , $u->hora_inicio);
                 $name = $u->name;
                 $last_name = $u->last_name;
                }else{
 
                    if($hTotal!=0){
                     
-                    $horas_volunter[$u->id-1] = [
+                    $horas_volunter[$u->id] = [
                         'name' => $name,
                         'last_name' => $last_name,
                         'hours' => $hTotal
-                    ];                   
+                    ]; 
+                    
                    }
 
                    $hTotal=0;
-                   $id++;
+                   $id= $u->id;
                    $name = $u->name;
                    $last_name = $u->last_name;
-                   $interval = getDiff($u->hora_final , $u->hora_inicio);
-                   $hTotal +=$interval;
+                   $hTotal += getDiff($u->hora_final , $u->hora_inicio);
                }
                
                if(end($userHoras) == $u){
                 
-                $horas_volunter[$u->id] = [
+                $horas_volunter[$u->id-1] = [
                     'name' => $u->name,
                     'last_name' => $u->last_name,
                     'hours' => $hTotal
                 ];                
                }
-           
+           //end foreach
         }
+        
         array_sort_by($horas_volunter, 'hours' ,$order = SORT_DESC);
 
     }
