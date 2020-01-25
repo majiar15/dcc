@@ -6,18 +6,19 @@ use App\hora;
 use App\user_hora;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-class HoraController extends Controller
-{
+
+class HoraController extends Controller {
+
     public function __construct() {
         $this->middleware('auth');
     }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index() {
         //
     }
 
@@ -26,50 +27,49 @@ class HoraController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
-    {  
+    public function create(Request $request) {
+        
 
-        $validate = $this->validate($request, [
-            'nom_evento' => 'required|string|max:255',
-            'voluntarios' =>'required|array',
-            'hora_inicio' => 'required|string|max:255',
-            'hora_final' => 'required|string|max:255',
-            
+        $validate = \Validator::make($request->all(), [
+                    'nom_evento' => 'required|string|max:255',
+                    'voluntarios' => 'required|array',
+                    'hora_inicio' => 'required|string|max:255',
+                    'date' => 'date',
+                    'hora_final' => 'required|string|max:255',
         ]);
-        
-        $nameEvent = $request->input('nom_evento');
-        $volunter = $request->input('voluntarios');
-        $hora_inicio = $request->input('hora_inicio');
-        $hora_final = $request->input('hora_final');
 
-        $hora = new hora();
-        $hora->nom_evento = $nameEvent;
-        $hora->hora_inicio = $hora_inicio;
-        $hora->hora_final = $hora_final;
+        if ($validate->fails()) {
+            return redirect()->route('horas')->with(['error' => 'Datos invalidos!!']);
+        } else {
+            $nameEvent = $request->input('nom_evento');
+            $volunter = $request->input('voluntarios');
+            $date = $request->input('date');
+            
+            $hora_inicio = $request->input('hora_inicio');
+            $hora_final = $request->input('hora_final');
+            $hora = new hora();
+            $hora->nom_evento = $nameEvent;
+            $hora->fecha = $date;
+            $hora->hora_inicio = $hora_inicio;
+            $hora->hora_final = $hora_final;
 
-    $hora->save();
+            $hora->save();
 
-        
-        $user_hora= new user_hora;
-        foreach($volunter as $voluntario){
-         $user_hora->user_id = (int) $voluntario;
-         $user_hora->horas_id = $hora->id;
-         $insert = user_hora::create(
-            [   'user_id'  =>  $user_hora->user_id,
-                'horas_id'   =>  $user_hora->horas_id,
-                'mes' => date("n")
-            ]);
-        
+
+            $user_hora = new user_hora;
+            foreach ($volunter as $voluntario) {
+                $user_hora->user_id = (int) $voluntario;
+                $user_hora->horas_id = $hora->id;
+                $insert = user_hora::create(
+                                [ 'user_id' => $user_hora->user_id,
+                                    'event_id' => $user_hora->horas_id,
+                                    'mes' => date("n",strtotime($date))
+                ]);
+            }
+            return redirect()->route('horas')->with(['message' => 'las horas de los voluntarios han sido ingresadas correctamente!!']);
         }
         
-    
-        
-
-
-        return redirect()->route('horas')->with(['message' => 'las horas de los voluntarios han sido ingresadas correctamente!!']);
     }
-
-
 
     /**
      * Store a newly created resource in storage.
@@ -77,8 +77,7 @@ class HoraController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
         //
     }
 
@@ -88,8 +87,7 @@ class HoraController extends Controller
      * @param  \App\hora  $hora
      * @return \Illuminate\Http\Response
      */
-    public function show(hora $hora)
-    {
+    public function show(hora $hora) {
         //
     }
 
@@ -99,8 +97,7 @@ class HoraController extends Controller
      * @param  \App\hora  $hora
      * @return \Illuminate\Http\Response
      */
-    public function edit(hora $hora)
-    {
+    public function edit(hora $hora) {
         //
     }
 
@@ -111,8 +108,7 @@ class HoraController extends Controller
      * @param  \App\hora  $hora
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, hora $hora)
-    {
+    public function update(Request $request, hora $hora) {
         //
     }
 
@@ -122,8 +118,8 @@ class HoraController extends Controller
      * @param  \App\hora  $hora
      * @return \Illuminate\Http\Response
      */
-    public function destroy(hora $hora)
-    {
+    public function destroy(hora $hora) {
         //
     }
+
 }

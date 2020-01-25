@@ -6,10 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class hora extends Model
 {
-    protected $table = 'horas';
+    protected $table = 'events';
 
     protected $fillable = [
-       'id','nom_evento', 'hora_inicio','hora_final'
+       'id','nom_evento','fecha','hora_inicio','hora_final'
     ];
 
 

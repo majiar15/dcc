@@ -18,7 +18,8 @@
   @endforeach
       </select>
       <br>
-      
+      <label for="fecha">Fecha del evento</label><br>
+      <input type="date" name="date"><br>
     <label for="hora">hora de inicio</label><br>
     <input type="time" name="hora_inicio" value="05:00"><br>
     <label for="hora">hora de finalizacion</label><br>

@@ -43,6 +43,7 @@
                         @guest
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ url('/') }}">{{ __('home') }}</a>
+                                <a href="{{ route('register') }}"  class="dropdown-item" >Registrar usuario</a>
                             </li>
                             {{-- <li class="nav-item">
                             <a href="{{ route('register') }}"  class="nav-link" >Registrar</a>

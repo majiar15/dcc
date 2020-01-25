@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateHorasTable extends Migration
+class CreateEventsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,14 @@ class CreateHorasTable extends Migration
      */
     public function up()
     {
-        Schema::create('horas', function (Blueprint $table) {
+        Schema::create('events', function (Blueprint $table) {
             $table->engine = 'InnoDB';  
             $table->increments('id',255);
             $table->string('nom_evento',255);
+            $table->date('fecha');
             $table->time('hora_inicio');
             $table->time('hora_final');
+            
             $table->timestamps();
         });
     }
@@ -30,6 +32,6 @@ class CreateHorasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('horas');
+        Schema::dropIfExists('events');
     }
 }
