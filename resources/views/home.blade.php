@@ -1,5 +1,6 @@
 @extends('layouts.modulo')
 
 @section('content')
-Pagina Home :v no se que poner aun 
+
+<img src="{{asset('img/logoDcc.png')}}" id="LogoContent" alt="Logo Defensa Civil">
 @endsection

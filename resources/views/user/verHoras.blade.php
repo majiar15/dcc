@@ -14,12 +14,13 @@
             <th>Asistentes</th>
             <th>Horas Asistidas totales</th>
             @foreach($eventos as $evento)
-            <td>{{$evento['nom_evento']}}<br>
-                {{'('.$evento['fecha'].')'}}
+            <td>{{$evento->nom_evento}}<br>
+                {{'('.$evento->fecha.')'}}
             </td>
             @endforeach
         </tr>
     </thead>
+
     @foreach ($horas as $hora)
 
     <tr>
@@ -32,41 +33,39 @@
         </td>
 
 
-        
+
         @foreach($user_events as $user_event)
             @if($hora['id'] == $user_event->user_id)     
 
                 @foreach($eventos as $evento)
 
-                    @if (isset($advance) && $advance && $loop->index > $index)
-        
-                        @if($evento['id'] == $user_event->event_id)
+                    @if (isset($advance) && $advance && $loop->index >= $index)
+                                           
+                        @if($evento->id == $user_event->event_id)
 
-                            <td>{{$hora['name'].'-'.$evento['nom_evento'].'-'.$user_event->user_id}}</td>
+                            <td>{{$hora['name'].'-'.$evento->nom_evento.'-'.$user_event->user_id}}</td>
 
                             <!--<td>1</td>-->
-                            @php
-                                $advance=true;
-                                $index = $loop->index;
-                            @endphp
-                    
+                            @break
+                            
                         @else                  
                             <td>0</td>
-                            @php
+                            <?php
                                 $advance=false;
-                            @endphp
+                            ?>
                         @endif                        
                     @else
-                       
-                        @if($evento['id'] == $user_event->event_id)
 
-                            <td>{{$hora['name'].'-'.$evento['nom_evento'].'-'.$user_event->user_id}}</td>
+                        @if($evento->id == $user_event->event_id)
+
+                            <td>{{$hora['name'].'-'.$evento->nom_evento.'-'.$user_event->user_id}}</td>
 
                             <!--<td>1</td>-->
-                            @php
+                            <?php
                                 $advance=true;
-                                $index = $loop->index;                                                            
-                            @endphp
+                                $index = $loop->index;  
+                                
+                            ?>
                             
 
                         @else                  

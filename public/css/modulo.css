@@ -158,7 +158,13 @@ a[data-toggle="collapse"] {
     right: 20px;
     transform: translateY(-50%);
 }
-
+#SubMenu::after {
+    display: block;
+    position: absolute;
+    top: 50%;
+    right: -20px;
+    transform: translateY(-50%);
+}
 ul ul a {
     font-size: 0.9em !important;
     padding-left: 30px !important;
@@ -264,4 +270,9 @@ a.article:hover {
 #hours thead tr th{
     text-align: center;
     padding: 15px;
+}
+#LogoContent{
+    display: block;
+    margin: 0px auto;
+    padding-top: 150px;
 }

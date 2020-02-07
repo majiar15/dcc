@@ -15,7 +15,7 @@ class CreateUserEventTable extends Migration
     {
         Schema::create('user_event', function (Blueprint $table) {
             $table->engine = 'InnoDB';  
-            $table->bigIncrements('id');
+            $table->Increments('id');
             $table->integer('user_id')->unsigned();          
             $table->foreign('user_id')->references('id')->on('users');
             $table->integer('event_id')->unsigned();            

@@ -142,8 +142,7 @@ class userHorasController extends Controller {
 //   echo 'horas voluntarios';
 //   var_dump($horas_volunter);
 //   echo 'user horas';
-//   var_dump($user_horas);
-//   die();
+
 
 
 
@@ -152,7 +151,7 @@ class userHorasController extends Controller {
             'mes' => $mes,
             'name_mes' => $name_month,
             'horas' => $horas_volunter,
-            'eventos' => json_decode( json_encode($array_eventos) , true),
+            'eventos' => $array_eventos,
             'user_events' => $user_evets
         ]);
     }

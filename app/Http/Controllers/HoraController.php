@@ -41,19 +41,31 @@ class HoraController extends Controller {
         if ($validate->fails()) {
             return redirect()->route('horas')->with(['error' => 'Datos invalidos!!']);
         } else {
+             function formatMilliseconds($milliseconds) { 
+        $seconds = floor($milliseconds / 1000);
+        $minutes = floor($seconds / 60);
+        $hours = floor($minutes / 60);
+        $milliseconds = $milliseconds % 1000; 
+        $seconds = $seconds % 60;
+        $minutes = $minutes % 60; 
+        $format = '%u:%02u:%02u.%03u'; 
+        $time = sprintf($format, $hours, $minutes, $seconds, $milliseconds); 
+        return rtrim($time, '0');
+     } 
             $nameEvent = $request->input('nom_evento');
             $volunter = $request->input('voluntarios');
-            $date = $request->input('date');
-            
+            $date = $request->input('date');   
             $hora_inicio = $request->input('hora_inicio');
             $hora_final = $request->input('hora_final');
+            
             $hora = new hora();
             $hora->nom_evento = $nameEvent;
             $hora->fecha = $date;
             $hora->hora_inicio = $hora_inicio;
             $hora->hora_final = $hora_final;
-
+            
             $hora->save();
+
 
 
             $user_hora = new user_hora;
