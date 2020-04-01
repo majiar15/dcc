@@ -127,26 +127,7 @@
                         </ul >
 
 
-                        @if(Auth::user()->role =='admin')
-                        <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" id="SubMenu">
-                            <i class="fas fa-copy"></i>
-                            Publicaciones
-                        </a>
-                        <ul class="collapse list-unstyled" id="pageSubmenu">
-                            <li>
-                                <a href="{{route('storePost')}}">Crear publicacion</a>
-                            </li>
-                            <li>
-                                <a href="#">Editar publicacion</a>
-                            </li>
-                            <li>
-                                <a href="#">Buscar publicacion</a>
-                            </li>
-                            <li>
-                                <a href="#">Eliminar publicacion</a>
-                            </li>
-                        </ul>
-                        @endif
+                        
 
 
 

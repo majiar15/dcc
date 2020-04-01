@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.dashboard.index')
 
 @section('content')
 <div class="container">
@@ -27,7 +27,7 @@
                         <div class="form-group row">
                             <label for="last_name" class="col-md-4 col-form-label text-md-right">{{ __('apellidos') }}</label>
 
-                            <div class="col-md-6">
+                            <div class="col-md-6 ">
                                 <input id="last_name" type="text" class="form-control @error('last_name') is-invalid @enderror" name="last_name" value="{{ old('last_name') }}" required autocomplete="last_name" autofocus>
 
                                 @error('last_name')
@@ -37,6 +37,20 @@
                                 @enderror
                             </div>
                         </div>
+                        <div class="form-group row">
+                            <label for="sexo" class="col-md-4 col-form-label text-md-right">sexo</label>
+                            <div class="form-check col-md-3 py-2 mx-3">
+                                <input class="form-check-input" name="sexo" id="sexo" type="radio"  value="masculino">
+                                <label class="form-check-label">Masculino</label>
+
+                            </div>
+                             <div class="form-check col-md-3 py-2 mx-sm-3 mx-md-0">
+                                 <input class="form-check-input" name="sexo" id="sexo"  type="radio" value="femenino">
+                                <label class="form-check-label">Femenino</label>
+
+                            </div>
+                        </div>
+                
                         <div class="form-group row">
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 

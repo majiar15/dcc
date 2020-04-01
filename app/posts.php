@@ -11,4 +11,8 @@ class posts extends Model
     protected $fillable = [
        'user_id','category_id','name','description','image',
     ];
+    
+    public function scopeIdDescending($query){
+        return $query->orderBy('id','DESC');
+    }
 }

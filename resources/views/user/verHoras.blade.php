@@ -1,93 +1,110 @@
-@extends('layouts.modulo')
+@extends('layouts.dashboard.index')
 
 @section('content')
 
+<style>
+     td:hover > div{
+        display: block!important;
 
+    }
+</style>
 @if (is_string($horas))
-<h3 class="massage_month" >{{$horas}}</h3>
+<h1 >{{$horas}}</h1>
 @else
-<h3 class="massage_month" >Horas Registradas en el mes de {{$name_mes}} </h3>
+<h1>Operatividad JDC chiquinquira {{$name_mes}} </h1>
+<div class="row">
+    <div class="table-responsive col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <table  id="hours" class="table table-hover">
+             <thead class="thead-light">
+                <tr>
+                    <th><center>Voluntarios</center></th>
+                    <th><center>Horas Asistidas totales</center></th>
 
-<table border='1' id="hours">
-    <thead>
-        <tr>
-            <th>Asistentes</th>
-            <th>Horas Asistidas totales</th>
-            @foreach($eventos as $evento)
-            <td>{{$evento->nom_evento}}<br>
-                {{'('.$evento->fecha.')'}}
-            </td>
-            @endforeach
-        </tr>
-    </thead>
+                    <th colspan="4"  ><center>Eventos</center></th>
 
-    @foreach ($horas as $hora)
+                </tr>
 
-    <tr>
-        <td>
-            {{$hora['name']." ".$hora['last_name'] }}
-        </td>
+            </thead>
+        <tbody>
+            @foreach ($horas as $hora)
 
-        <td>
-            {{$hora['hours']}}
-        </td>
+            <tr>
+                <td> 
+                    <center>{{$hora['name']." ".$hora['last_name'] }}</center>
+                </td>
+
+                <td>
+                   <center> {{$hora['hours']}}</center>
+                </td>
+
+                @php
+                $iterador = 0;
+                @endphp
+
+                @foreach($user_events as $user_event)
+                    @if($hora['id'] == $user_event->user_id)     
+
+                        @foreach($eventos as $evento)
 
 
 
-        @foreach($user_events as $user_event)
-            @if($hora['id'] == $user_event->user_id)     
+                                @if($evento->id == $user_event->event_id)
 
-                @foreach($eventos as $evento)
+                                    @php
+                                    $iterador++;
 
-                    @if (isset($advance) && $advance && $loop->index >= $index)
-                                           
-                        @if($evento->id == $user_event->event_id)
+                                    @endphp
 
-                            <td>{{$hora['name'].'-'.$evento->nom_evento.'-'.$user_event->user_id}}</td>
+                                    <td> 
+                                        <center>{{$evento->nom_evento}} </center>
 
-                            <!--<td>1</td>-->
-                            @break
-                            
-                        @else                  
-                            <td>0</td>
-                            <?php
-                                $advance=false;
-                            ?>
-                        @endif                        
-                    @else
+                                        <div class="card d-none position-absolute" style="width: 14rem;">
+                                            <div class="card-body ">
+                                              <h5 class="card-title">{{$evento->nom_evento}}</h5>
+                                              <p class="card-text">{{'fecha:'.$evento->fecha}}</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    
+                                @endif
 
-                        @if($evento->id == $user_event->event_id)
 
-                            <td>{{$hora['name'].'-'.$evento->nom_evento.'-'.$user_event->user_id}}</td>
 
-                            <!--<td>1</td>-->
-                            <?php
-                                $advance=true;
-                                $index = $loop->index;  
-                                
-                            ?>
-                            
 
-                        @else                  
-                            <td>0</td>
-                            
-                        @endif
+
+                        @endforeach 
+
+
 
                     @endif
 
-                    
-                    
+
+
                 @endforeach
+                @if($loop->index ==0)
+                    @php
+                        $max = $iterador;
+                    @endphp
+                @endif
+               <?php
 
-            @endif
+
+                    if($iterador < $max){
+                        for($i = $iterador; $i < $max ;$i++){
+                            echo "<td> <center> - </center></td>";
+                        }
+                    }
 
 
-        @endforeach
 
-    </tr>
-    @endforeach   
-</table>
+              ?>
 
+            </tr>
+            @endforeach   
+            </tbody>
+        </table>
+    </div>
+</div>
 @endif
 
 

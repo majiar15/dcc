@@ -69,6 +69,7 @@
                             </li>
                             
                             <li class="menu-item"><a href="{{ route('login') }}">Login</a></li>
+                           
                             <li class="menu-item"><a href="contact.html">contacto</a></li>
                         </ul><!-- /.navbar-nav -->
 

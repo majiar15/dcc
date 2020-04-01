@@ -7,9 +7,11 @@ use App\posts;
 class WelcomeController extends Controller
 {
     public function index(){
-        $post = posts::paginate(6);
+                $posts = Posts::orderBy('id','desc')->paginate(6);
+                
+                
 
        
-        return view('welcome',['posts' =>$post]);
+        return view('welcome',['posts' =>$posts]);
     }
 }
